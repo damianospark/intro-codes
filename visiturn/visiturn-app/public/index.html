@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon-96x96.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-icon-180x180.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <!-- Icons to support Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Cleanbeding Visits</title>
+    <script type="text/javascript">
+      !function () { "use strict"; !function (e, t) { var r = e.amplitude || { _q: [] }; if (r.invoked) e.console && console.error && console.error("Amplitude snippet has been loaded."); else { r.invoked = !0; var n = t.createElement("script"); n.type = "text/javascript", n.integrity = "sha384-GS6YJWyepBi+TL3uXx5i7xx1UTA9iHaZr9q+5uNsuhzMb8c1SfkKW4Wee/IxZOW5", n.crossOrigin = "anonymous", n.async = !0, n.src = "https://cdn.amplitude.com/libs/analytics-browser-1.0.0-min.js.gz", n.onload = function () { e.amplitude.runQueuedFunctions || console.log("[Amplitude] Error: could not load SDK") }; var s = t.getElementsByTagName("script")[0]; function v(e, t) { e.prototype[t] = function () { return this._q.push({ name: t, args: Array.prototype.slice.call(arguments, 0) }), this } } s.parentNode.insertBefore(n, s); for (var o = function () { return this._q = [], this }, i = ["add", "append", "clearAll", "prepend", "set", "setOnce", "unset", "preInsert", "postInsert", "remove", "getUserProperties"], a = 0; a < i.length; a++)v(o, i[a]); r.Identify = o; for (var u = function () { return this._q = [], this }, c = ["getEventProperties", "setProductId", "setQuantity", "setPrice", "setRevenue", "setRevenueType", "setEventProperties"], l = 0; l < c.length; l++)v(u, c[l]); r.Revenue = u; var p = ["getDeviceId", "setDeviceId", "regenerateDeviceId", "getSessionId", "setSessionId", "getUserId", "setUserId", "setOptOut", "setTransport"], d = ["init", "add", "remove", "track", "logEvent", "identify", "groupIdentify", "setGroup", "revenue"]; function f(e) { function t(t, r) { e[t] = function () { var n = { promise: new Promise((r => { e._q.push({ name: t, args: Array.prototype.slice.call(arguments, 0), resolve: r }) })) }; if (r) return n } } for (var r = 0; r < p.length; r++)t(p[r], !1); for (var n = 0; n < d.length; n++)t(d[n], !0) } f(r), e.amplitude = r } }(window, document) }();
+
+      amplitude.init("d6fbe28f1b2bb2f937ca80859d58424c");
+    </script>
+    <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0d841ebdb5150a17852dc3384c253aa6&libraries=services,clusterer,drawing"></script> -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0d841ebdb5150a17852dc3384c253aa6"></script>
+    <style>
+      .wrap {
+        position: fixed;
+        width: 400px;
+        height: 100px;
+        /* 84 */
+        /* margin-left: -200px;
+        margin-top: -220px; */
+        text-align: left;
+        overflow: visible;
+        font-size: 12px;
+        font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+        line-height: 1.5;
+      }
+
+      .wrap * {
+        padding: 0;
+        margin: 0;
+      }
+
+      .wrap .info {
+        /* width: 220px; */
+        /* height: 120px; */
+        border-radius: 5px;
+        border-top: 1px solid #fff;
+        border-bottom: 2px solid #ccc;
+        border-right: 1px solid #ccc;
+        overflow: hidden;
+        background: #fff;
+
+      }
+
+      .wrap .info:nth-child(1) {
+        /* border: 0; */
+        box-shadow: 0px 1px 2px #d7dadc;
+      }
+
+      .info .title {
+        padding: 2px 0 0 10px;
+        height: 35px;
+        /*28px*/
+        background: #8ad5f1;
+        border-bottom: 1px solid #072d3f;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .info .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #888;
+        width: 17px;
+        height: 17px;
+        background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+      }
+
+      .info .close:hover {
+        cursor: pointer;
+      }
+
+      .info .body {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .info .desc {
+        position: relative;
+        margin: 3px 0 0 2px;
+        height: auto;
+        overflow-y: visible;
+      }
+
+      .desc .ellipsis {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .desc .jibun {
+        font-size: 11px;
+        color: #888;
+        margin-top: -1px;
+      }
+
+      .info .img {
+        position: relative;
+        top: 6px;
+        left: 5px;
+        width: 73px;
+        /* height: 71px; */
+        /* height: 80px; */
+        border: 1px solid #ddd;
+        color: #888;
+        overflow: hidden;
+      }
+
+      .notify-badge {
+        position: absolute;
+        right: -24px;
+        top: -42px;
+        background: black;
+        text-align: center;
+        border-radius: 5px 5px 5px 5px;
+        color: white;
+        padding: 2px 6px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      /* .info:after {
+        content: '';
+        position: absolute;
+        margin-left: -12px;
+        margin-bottom: -8px;
+        padding: 0;
+        left: 50%;
+        width: 22px;
+        height: 11px;
+        /* border: 1px solid #ef0d0d; */
+      background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+      }
+
+      */ .info .link {
+        color: #5085BB;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+
+</html>

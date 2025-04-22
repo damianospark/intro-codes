@@ -1,0 +1,31 @@
+
+https://tms.teamfresh.co.kr/tcc/return/report 의 //*[@id="teamfresh"]
+https://tms.teamfresh.co.kr/tcc/delivery/report 의 //*[@id="teamfresh"]
+
+오늘 기준 지난 주의 수요일의 첫 번째(배송, 수거) 보고서와 오늘의 첫 번 째 (배송, 수거) 보고서각각을 비교
+
+
+from needle.cases import NeedleTestCase
+from selenium.webdriver.common.by import By
+
+class MyVisualTest(NeedleTestCase):
+    engine_class = 'needle.engines.perceptualdiff_engine.Engine'
+    viewport_size = (1024, 768)
+    baseline_dir = 'path/to/baseline_images'
+    output_dir = 'path/to/test_screenshots'
+
+    def setUp(self):
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+    def test_visual(self):
+        # ... 시각적 회귀 테스트 로직 ...
+        self.driver.get("http://www.example.com")
+        self.assertScreenshot("example_element", By.ID, "example_element_id")
+
+if __name__ == "__main__":
+    import unittest
+    unittest.main()
+
+
+target_name, url, xpath_to_check
+수거내역, https://tms.teamfresh.co.kr/tcc/return/report,//*[@id="teamfresh"]
+배송내역, https://tms.teamfresh.co.kr/tcc/delivery/report, //*[@id="teamfresh"]

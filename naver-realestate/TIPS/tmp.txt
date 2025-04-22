@@ -1,0 +1,6 @@
+SELECT * FROM customatrix_complex_dong_ho_joins ccdhj WHERE cortar_address LIKE '서울%' UNION ALL
+SELECT * FROM customatrix_complex_dong_ho_joins ccdhj WHERE cortar_address LIKE '충청%' UNION ALL
+SELECT * FROM customatrix_complex_dong_ho_joins ccdhj WHERE cortar_address LIKE '경기%' UNION ALL
+SELECT * FROM customatrix_complex_dong_ho_joins ccdhj WHERE cortar_address LIKE '대전%' UNION ALL
+SELECT * FROM customatrix_complex_dong_ho_joins ccdhj WHERE cortar_address LIKE '세종%' UNION ALL
+SELECT * FROM customatrix_complex_dong_ho_joins ccdhj WHERE cortar_address LIKE '인천%' UNION ALL

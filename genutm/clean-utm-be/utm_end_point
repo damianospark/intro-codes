@@ -1,0 +1,169 @@
+server {
+
+  listen 80;
+
+  server_name better.cleanb.life; # Replace with your domain name
+  #auth_basic "Restricted Access";
+  #auth_basic_user_file /etc/nginx/.htpasswd;
+  error_page 404 /custom_404.html;
+  location = /custom_404.html {
+    root /var/www/html;
+    internal;
+  }
+
+# location ^~ /.well-known/pki-validation/ {
+#    default_type "text/plain";
+#    root /var/www/html;
+# }
+
+
+  location / {
+    proxy_pass http://localhost:880; # wordpress 서버 포트로 프록시
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_set_header X-Authenticated-User $remote_user;
+  }
+
+  location /clean_stats {
+     return 301 https://$server_name$request_uri; 
+  }
+
+  location /utm/ {
+    return 301 https://$server_name$request_uri;
+
+#    auth_basic "Restricted Access";
+#    auth_basic_user_file /etc/nginx/.htpasswd;
+#    proxy_pass http://localhost:3001/utm/; # Node.js 서버 포트로 프록시
+#    proxy_http_version 1.1;
+#    proxy_set_header Upgrade $http_upgrade;
+#    proxy_set_header Connection 'upgrade';
+#    proxy_set_header Host $host;
+#    proxy_cache_bypass $http_upgrade;
+#    proxy_set_header X-Authenticated-User $remote_user;
+  }
+
+   location /auth/ {
+    proxy_pass http://localhost:3001/auth/; # Node.js 서버 포트로 프록시
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_set_header X-Authenticated-User $remote_user;
+  }
+
+
+}
+
+server {
+
+  listen 30009 ssl;
+  server_name better.cleanb.life;
+  ssl_certificate /etc/nginx/ssl/server.pem;
+  ssl_certificate_key /etc/nginx/ssl/cert.key;
+
+  location / {
+    proxy_pass http://localhost:30008/; 
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+
+}
+
+server {
+
+  listen 443 ssl;
+  # SSL configuration
+  #
+  server_name better.cleanb.life;
+  #ssl on; deprecated
+  ssl_certificate /etc/nginx/ssl/server.pem;
+  ssl_certificate_key /etc/nginx/ssl/cert.key;
+  ssl_protocols TLSv1.1 TLSv1.2;
+  #auth_basic "Restricted Access";
+  #auth_basic_user_file /etc/nginx/.htpasswd;
+  error_page 404 /custom_404.html;
+  location = /custom_404.html {
+    root /var/www/html;
+    internal;
+  }
+
+
+#  location ^~ /.well-known/pki-validation/ {
+#    default_type "text/plain";
+#    root /var/www/html;
+#  }
+
+#  location / {
+#    proxy_pass http://localhost:880; # wordpress 서버 포트로 프록시
+#    proxy_http_version 1.1;
+#    proxy_set_header Upgrade $http_upgrade;
+#    proxy_set_header Connection 'upgrade';
+#    proxy_set_header Host $host;
+#    proxy_cache_bypass $http_upgrade;
+#    proxy_set_header X-Authenticated-User $remote_user;
+#  }
+
+  location /clean_stats/ {
+    auth_basic "Restricted Access";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    proxy_pass http://localhost:8050/; # Node.js 서버 포트로 프록시
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Authenticated-User $remote_user;
+    proxy_pass_request_headers on;
+    proxy_set_header Authorization $http_authorization;
+  }
+
+  location /utm/ {
+    auth_basic "Restricted Access";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    proxy_pass http://localhost:3001/utm/; # Node.js 서버 포트로 프록시
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Authenticated-User $remote_user;
+    proxy_pass_request_headers on;
+    proxy_set_header Authorization $http_authorization;
+  }
+
+   location /auth/ {
+    auth_basic "Restricted Access";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    proxy_pass http://localhost:3001/auth/; # Node.js 서버 포트로 프록시
+    proxy_http_version 1.1;
+    proxy_set_header Authorization $http_authorization;
+    proxy_set_header X-Authenticated-User $remote_user;
+  }
+  
+  #
+  # Nocodb
+  #
+  location /dashboard/ {
+    proxy_pass http://localhost:30008/dashboard;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+
+  location /api {
+    proxy_pass http://localhost:30008/api;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+
+}
+

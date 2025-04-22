@@ -1,0 +1,12 @@
+Total Pixel is 1275750
+Diff Pixel is 10664
+Diff Ratio is 0.8%
+Field of view is 45 degrees
+Threshold pixels is 0 pixels
+The gamma is 2.2
+The display's luminance is 100 candela per meter squared
+Converting RGB to XYZ
+Performing test
+Constructing Laplacian Pyramids
+FAIL: Images are visibly different
+10664 pixels are different

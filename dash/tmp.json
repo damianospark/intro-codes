@@ -1,0 +1,7 @@
+{'documents': [
+        {'address': {'address_name': '경기 하남시 신장동 26-5', 'b_code': '4145010600', 'h_code': '4145053000', 'main_address_no': '26', 'mountain_yn': 'N', 'region_1depth_name': '경기', 'region_2depth_name': '하남시', 'region_3depth_h_name': '신장2동', 'region_3depth_name': '신장동', 'sub_address_no': '5', 'x': '127.219207240968', 'y': '37.5480979763175'
+            }, 'address_name': '경기 하남시 신장동 26-5', 'address_type': 'REGION_ADDR', 'road_address': None, 'x': '127.219207240968', 'y': '37.5480979763175'
+        }
+    ], 'meta': {'is_end': True, 'pageable_count': 1, 'total_count': 1
+    }
+}

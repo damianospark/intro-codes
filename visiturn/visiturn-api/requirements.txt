@@ -1,0 +1,9 @@
+fastapi
+requests
+pandas
+osmnx
+networkx
+loguru
+vrpy
+polyline
+openrouteservice
